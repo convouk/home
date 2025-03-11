@@ -4,90 +4,823 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CONVO</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;500;700&display=swap"
-      rel="stylesheet"
-    />
     <style>
-      /* Reset & General Styling */
-      * {
+      /* Global Styles */
+      body {
+        font-family: Arial, sans-serif;
         margin: 0;
         padding: 0;
-        box-sizing: border-box;
-      }
-
-      body {
-        font-family: "JetBrains Mono", monospace;
+        min-height: 100vh;
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        background: linear-gradient(135deg, #f8f9fa, #e3e7eb);
-        color: #2c3e50;
-        text-align: center;
-        padding: 20px;
       }
 
-      .container {
-        max-width: 800px;
-        padding: 40px;
-        background: rgba(255, 255, 255, 0.8);
-        border-radius: 12px;
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-        animation: fadeIn 1.2s ease-in-out;
-      }
-
-      h1 {
-        font-size: 2.5rem;
-        font-weight: 700;
-        margin-bottom: 15px;
-        color: #1a202c;
-        letter-spacing: 0.5px;
+      main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
       }
 
       p {
-        font-size: 1.2rem;
-        font-weight: 400;
-        opacity: 0.9;
+        line-height: 1.5;
       }
 
-      .footer {
-        margin-top: 20px;
-        font-size: 0.9rem;
-        color: #555;
-        opacity: 0.8;
+      /* Hero Section */
+      .hero {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 8rem 1rem;
+        text-align: center;
+        overflow: hidden;
       }
 
-      /* Fade-in animation */
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(-10px);
+      @media (min-width: 768px) {
+        .hero {
+          padding: 10rem 1rem;
         }
-        to {
-          opacity: 1;
-          transform: translateY(0);
+      }
+
+      .hero-bg {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top right, #f8fafc, #ffffff, #f8fafc);
+        z-index: -10;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        .hero-bg {
+          background: linear-gradient(to top right, #020617, #0f172a, #020617);
+        }
+      }
+
+      .hero-blur1 {
+        position: absolute;
+        width: 500px;
+        height: 500px;
+        border-radius: 50%;
+        background-color: rgba(241, 245, 249, 0.5);
+        filter: blur(64px);
+        top: -16rem;
+        right: -16rem;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        .hero-blur1 {
+          background-color: rgba(30, 41, 59, 0.2);
+        }
+      }
+
+      .hero-blur2 {
+        position: absolute;
+        width: 400px;
+        height: 400px;
+        border-radius: 50%;
+        background-color: rgba(241, 245, 249, 0.5);
+        filter: blur(64px);
+        bottom: -12rem;
+        left: -12rem;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        .hero-blur2 {
+          background-color: rgba(30, 41, 59, 0.2);
+        }
+      }
+
+      .hero-content {
+        max-width: 64rem;
+        margin: 0 auto;
+        position: relative;
+        z-index: 10;
+      }
+
+      .logo-container {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+        position: relative;
+      }
+
+      .logo-blur {
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        background-color: rgba(226, 232, 240, 0.7);
+        filter: blur(24px);
+        opacity: 0.5;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        .logo-blur {
+          background-color: rgba(51, 65, 85, 0.5);
+        }
+      }
+
+      .logo {
+        position: relative;
+        width: 120px;
+        height: 120px;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        .logo {
+          filter: invert(1);
+        }
+      }
+
+      h1 {
+        font-size: 2.25rem;
+        font-weight: 700;
+        letter-spacing: -0.025em;
+        margin-bottom: 1rem;
+        background: linear-gradient(to right, #0f172a, #334155);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      @media (min-width: 768px) {
+        h1 {
+          font-size: 3.75rem;
+        }
+      }
+
+      @media (prefers-color-scheme: dark) {
+        h1 {
+          background: linear-gradient(to right, #ffffff, #d1d5db);
+        }
+      }
+
+      .hero p {
+        font-size: 1.25rem;
+        color: #4b5563;
+        margin-bottom: 2rem;
+      }
+
+      @media (min-width: 768px) {
+        .hero p {
+          font-size: 1.5rem;
+        }
+      }
+
+      @media (prefers-color-scheme: dark) {
+        .hero p {
+          color: #d1d5db;
+        }
+      }
+
+      /* Developing Section */
+      .developing {
+        padding: 8rem 1rem;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .developing-bg {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top left, #ffffff, #f8fafc, #ffffff);
+        z-index: -10;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        .developing-bg {
+          background: linear-gradient(to top left, #0f172a, #020617, #0f172a);
+        }
+      }
+
+      .developing-blur {
+        position: absolute;
+        width: 800px;
+        height: 800px;
+        border-radius: 50%;
+        background-color: rgba(241, 245, 249, 0.5);
+        filter: blur(64px);
+        right: -24rem;
+        top: 25%;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        .developing-blur {
+          background-color: rgba(30, 41, 59, 0.2);
+        }
+      }
+
+      .container {
+        max-width: 80rem;
+        margin: 0 auto;
+        padding: 0 1rem;
+        position: relative;
+        z-index: 10;
+      }
+
+      h2 {
+        font-size: 1.875rem;
+        font-weight: 700;
+        margin-bottom: 3rem;
+        text-align: center;
+        background: linear-gradient(to right, #0f172a, #334155);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      @media (min-width: 768px) {
+        h2 {
+          font-size: 2.25rem;
+        }
+      }
+
+      @media (prefers-color-scheme: dark) {
+        h2 {
+          background: linear-gradient(to right, #ffffff, #d1d5db);
+        }
+      }
+
+      .developing p {
+        font-size: 1.125rem;
+        color: #4b5563;
+        margin-bottom: 4rem;
+        max-width: 48rem;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        .developing p {
+          color: #d1d5db;
+        }
+      }
+
+      .features {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        max-width: 32rem;
+        margin: 2rem auto 0;
+      }
+
+      @media (min-width: 640px) {
+        .features {
+          flex-direction: row;
+          gap: 1rem;
+        }
+      }
+
+      .feature-item {
+        display: flex;
+        align-items: center;
+      }
+
+      .feature-icon {
+        background: linear-gradient(to bottom right, #f1f5f9, #e2e8f0);
+        padding: 0.75rem;
+        border-radius: 50%;
+        margin-right: 1rem;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+      }
+
+      @media (prefers-color-scheme: dark) {
+        .feature-icon {
+          background: linear-gradient(to bottom right, #1e293b, #334155);
+        }
+      }
+
+      .feature-icon svg {
+        width: 1.5rem;
+        height: 1.5rem;
+        color: #4b5563;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        .feature-icon svg {
+          color: #e5e7eb;
+        }
+      }
+
+      .feature-item span {
+        color: #334155;
+        white-space: nowrap;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        .feature-item span {
+          color: #d1d5db;
+        }
+      }
+
+      /* Impact Section */
+      .impact {
+        padding: 8rem 1rem;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .impact-bg {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to bottom right, #f8fafc, #ffffff, #f8fafc);
+        z-index: -10;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        .impact-bg {
+          background: linear-gradient(
+            to bottom right,
+            #020617,
+            #0f172a,
+            #020617
+          );
+        }
+      }
+
+      .impact-blur {
+        position: absolute;
+        width: 600px;
+        height: 600px;
+        border-radius: 50%;
+        background-color: rgba(241, 245, 249, 0.7);
+        filter: blur(64px);
+        left: -16rem;
+        top: 33%;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        .impact-blur {
+          background-color: rgba(30, 41, 59, 0.3);
+        }
+      }
+
+      .impact-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      @media (min-width: 768px) {
+        .impact-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+      .impact-card {
+        background: linear-gradient(to bottom right, #ffffff, #f8fafc);
+        padding: 1.5rem;
+        border-radius: 0.75rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+          0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        border: 1px solid #f1f5f9;
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+
+      .impact-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+          0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      }
+
+      @media (prefers-color-scheme: dark) {
+        .impact-card {
+          background: linear-gradient(to bottom right, #1e293b, #0f172a);
+          border-color: #334155;
+        }
+      }
+
+      .impact-card .icon-container {
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+        background: linear-gradient(to bottom right, #f1f5f9, #e2e8f0);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1rem;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        .impact-card .icon-container {
+          background: linear-gradient(to bottom right, #1e293b, #334155);
+        }
+      }
+
+      .impact-card svg {
+        width: 1.5rem;
+        height: 1.5rem;
+        color: #4b5563;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        .impact-card svg {
+          color: #e5e7eb;
+        }
+      }
+
+      .impact-card h3 {
+        font-size: 1.25rem;
+        font-weight: 500;
+        margin-bottom: 0.75rem;
+        color: #1e293b;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        .impact-card h3 {
+          color: #ffffff;
+        }
+      }
+
+      .impact-card p {
+        color: #4b5563;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        .impact-card p {
+          color: #d1d5db;
+        }
+      }
+
+      .mission {
+        margin-top: 4rem;
+        text-align: center;
+      }
+
+      .mission p {
+        font-size: 1.125rem;
+        color: #4b5563;
+        max-width: 48rem;
+        margin: 0 auto;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        .mission p {
+          color: #d1d5db;
+        }
+      }
+
+      /* Support Section */
+      .support {
+        padding: 8rem 1rem;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .support-bg {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top right, #f8fafc, #ffffff, #f8fafc);
+        z-index: -10;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        .support-bg {
+          background: linear-gradient(to top right, #020617, #0f172a, #020617);
+        }
+      }
+
+      .support-content {
+        max-width: 48rem;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      .support h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .support p {
+        color: #4b5563;
+        margin-bottom: 2rem;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        .support p {
+          color: #d1d5db;
+        }
+      }
+
+      .badge {
+        background: linear-gradient(to right, #ffffff, #f8fafc);
+        padding: 1rem 2rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+          0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        border: 1px solid #f1f5f9;
+        display: inline-block;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        .badge {
+          background: linear-gradient(to right, #1e293b, #0f172a);
+          border-color: #334155;
+        }
+      }
+
+      .badge p {
+        font-weight: 500;
+        color: #1e293b;
+        margin: 0;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        .badge p {
+          color: #ffffff;
+        }
+      }
+
+      /* Footer */
+      footer {
+        padding: 2rem 1rem;
+        border-top: 1px solid #e2e8f0;
+        background: linear-gradient(to bottom, #ffffff, #f8fafc);
+      }
+
+      @media (prefers-color-scheme: dark) {
+        footer {
+          border-top-color: #334155;
+          background: linear-gradient(to bottom, #0f172a, #020617);
+        }
+      }
+
+      .footer-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      @media (min-width: 768px) {
+        .footer-content {
+          flex-direction: row;
+          justify-content: space-between;
+        }
+      }
+
+      .footer-logo-container {
+        display: flex;
+        align-items: center;
+        position: relative;
+      }
+
+      .footer-logo-blur {
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        background-color: rgba(226, 232, 240, 0.7);
+        filter: blur(12px);
+        opacity: 0.3;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        .footer-logo-blur {
+          background-color: rgba(51, 65, 85, 0.5);
+        }
+      }
+
+      .footer-logo {
+        position: relative;
+        width: 40px;
+        height: 40px;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        .footer-logo {
+          filter: invert(1);
+        }
+      }
+
+      .footer-logo-container span {
+        font-weight: 500;
+        margin-left: 0.5rem;
+        color: #1e293b;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        .footer-logo-container span {
+          color: #ffffff;
+        }
+      }
+
+      footer p {
+        font-size: 0.875rem;
+        color: #6b7280;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        footer p {
+          color: #9ca3af;
         }
       }
     </style>
   </head>
-   <body>
-    <img
-      src="https://raw.githubusercontent.com/convouk/home/main/qoute-single.png"
-      alt="Logo"
-      class="logo"
-      width="80"
-      height="80"
-    />
   <body>
-    <div class="container">
-      <h1>CONVO @ UCL</h1>
-      <p>
-        Brings clarity and comfort to every conversation. <br /><br />Stay tuned
-        for future updates.
-      </p>
-    </div>
-    <div class="footer">&copy; 2025 CONVO Ltd. All rights reserved.</div>
+    <main>
+      <!-- Hero Section -->
+      <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-blur1"></div>
+        <div class="hero-blur2"></div>
+        <div class="hero-content">
+          <div class="logo-container">
+            <div class="logo-blur"></div>
+            <img
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/qoute-single-17HaC4hVPOUjFe5Ok0KDHh8t0kfAB4.png"
+              alt="CONVO Logo"
+              class="logo"
+            />
+          </div>
+          <h1>CONVO</h1>
+          <p>Hear every word. See every meaning.</p>
+        </div>
+      </section>
+
+      <!-- What We're Developing Section -->
+      <section class="developing">
+        <div class="developing-bg"></div>
+        <div class="developing-blur"></div>
+        <div class="container">
+          <h2>Redefining Speech Recognition</h2>
+          <p>
+            At CONVO, we're working on a revoluntionary multimodal speech
+            recognition system that integrates audio and visual inputs to
+            enhance speech recognition in real time.
+          </p>
+          <p>
+            Our technology provides a complete conversational experience,
+            recognising that we don’t just hear words—we see expressions, lip
+            movements that enhance clarity and meaning.
+          </p>
+          <div class="features">
+            <div class="feature-item">
+              <div class="feature-icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                </svg>
+              </div>
+              <span>Real-time processing</span>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"
+                  />
+                </svg>
+              </div>
+              <span>Audio analysis</span>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                  <circle cx="12" cy="12" r="3" />
+                </svg>
+              </div>
+              <span>Visual cues</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Impact Section -->
+      <section class="impact">
+        <div class="impact-bg"></div>
+        <div class="impact-blur"></div>
+        <div class="container">
+          <h2>Making Conversations Comfortable Again</h2>
+          <div class="impact-grid">
+            <div class="impact-card">
+              <div class="icon-container">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M17 8h2a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-2v4l-4-4H9a2 2 0 0 1-1.414-.586m0 0L11 14h4a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2v4l.586-.586z"
+                  />
+                </svg>
+              </div>
+              <h3>Enhanced Social Connection</h3>
+              <p>
+                Supporting people with mild hearing loss to stay engaged in
+                conversations with ease.
+              </p>
+            </div>
+            <div class="impact-card">
+              <div class="icon-container">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 1 1 7.072 0l-.548.547A3.374 3.374 0 0 0 14 18.469V19a2 2 0 1 1-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                  />
+                </svg>
+              </div>
+              <h3>Reduced Cognitive Load</h3>
+              <p>
+                Decreasing the mental effort required to follow conversations in
+                noisy environments.
+              </p>
+            </div>
+            <div class="impact-card">
+              <div class="icon-container">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+                </svg>
+              </div>
+              <h3>Accessible Technology</h3>
+              <p>
+                Creating solution that is intuitive, discreet, and designed for
+                everyday use.
+              </p>
+            </div>
+          </div>
+          <div class="mission">
+            <p>
+              Our goal is to make hearing effortless, so every conversation
+              feels clear, easy, and natural.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- UCL AI Foundry Support Section -->
+      <section class="support">
+        <div class="support-bg"></div>
+        <div class="support-content">
+          <h2>Supported by UCL AI Foundry</h2>
+          <p>
+            We're proud to be backed by UCL AI Foundry, providing us with the
+            expertise, resources, and network to bring our innovative technology
+            to those who need it most.
+          </p>
+          <div class="badge">
+            <p>UCL AI Foundry Partner</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer>
+        <div class="container footer-content">
+          <div class="footer-logo-container">
+            <div class="footer-logo-blur"></div>
+            <img
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/qoute-single-17HaC4hVPOUjFe5Ok0KDHh8t0kfAB4.png"
+              alt="CONVO Logo"
+              class="footer-logo"
+            />
+            <span>CONVO</span>
+          </div>
+          <p>© 2025 CONVO. All rights reserved.</p>
+        </div>
+      </footer>
+    </main>
   </body>
 </html>
